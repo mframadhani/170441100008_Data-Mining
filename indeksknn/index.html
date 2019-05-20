@@ -1,0 +1,1322 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Kumpulan Tugas Data Mining (SI 6A)">
+      
+      
+        <link rel="canonical" href="https://mframadhani.github.io/170441100008_Data-Mining/indeksknn/">
+      
+      
+        <meta name="author" content="Moh Fajar Ramadhani">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>K-Nearest Neighbors - Data Mining (170441100008)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "None", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#k-nearest-neighbors" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://mframadhani.github.io/170441100008_Data-Mining/" title="Data Mining (170441100008)" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Mining (170441100008)
+            </span>
+            <span class="md-header-nav__topic">
+              K-Nearest Neighbors
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/mframadhani/170441100008_Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Moh Fajar Ramadhani
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Pengantar" class="md-tabs__link md-tabs__link--active">
+        Pengantar
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://mframadhani.github.io/170441100008_Data-Mining/" title="Data Mining (170441100008)" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Mining (170441100008)
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/mframadhani/170441100008_Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Moh Fajar Ramadhani
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Pengantar" class="md-nav__link">
+      Pengantar
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../indekskmeans/" title="K-Means" class="md-nav__link">
+      K-Means
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        K-Nearest Neighbors
+      </label>
+    
+    <a href="./" title="K-Nearest Neighbors" class="md-nav__link md-nav__link--active">
+      K-Nearest Neighbors
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan" class="md-nav__link">
+    Pendahuluan
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pengertian-k-nearest-neighbor" title="Pengertian K-Nearest Neighbor" class="md-nav__link">
+    Pengertian K-Nearest Neighbor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algoritma" title="Algoritma" class="md-nav__link">
+    Algoritma
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-kasus-hitung-manual" title="Contoh Kasus (Hitung Manual)" class="md-nav__link">
+    Contoh Kasus (Hitung Manual)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelebihan" title="Kelebihan" class="md-nav__link">
+    Kelebihan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kekurangan" title="Kekurangan" class="md-nav__link">
+    Kekurangan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-studi-kasus" title="Implementasi (Studi Kasus)" class="md-nav__link">
+    Implementasi (Studi Kasus)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alat-bahan" title="Alat &amp; Bahan" class="md-nav__link">
+    Alat &amp; Bahan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#langkah-langkah" title="Langkah-langkah" class="md-nav__link">
+    Langkah-langkah
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pertama" title="Pertama" class="md-nav__link">
+    Pertama
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedua" title="Kedua" class="md-nav__link">
+    Kedua
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketiga" title="Ketiga" class="md-nav__link">
+    Ketiga
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keempat" title="Keempat" class="md-nav__link">
+    Keempat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelima" title="Kelima" class="md-nav__link">
+    Kelima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keenam" title="Keenam" class="md-nav__link">
+    Keenam
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketujuh" title="Ketujuh" class="md-nav__link">
+    Ketujuh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedelapan" title="Kedelapan" class="md-nav__link">
+    Kedelapan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesembilan" title="Kesembilan" class="md-nav__link">
+    Kesembilan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesepuluh" title="Kesepuluh" class="md-nav__link">
+    Kesepuluh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesebelas" title="Kesebelas" class="md-nav__link">
+    Kesebelas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referensi" title="Referensi" class="md-nav__link">
+    Referensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../indeksdecisiontree/" title="Decision Tree" class="md-nav__link">
+      Decision Tree
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../bio/" title="Biografi" class="md-nav__link">
+      Biografi
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan" class="md-nav__link">
+    Pendahuluan
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pengertian-k-nearest-neighbor" title="Pengertian K-Nearest Neighbor" class="md-nav__link">
+    Pengertian K-Nearest Neighbor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algoritma" title="Algoritma" class="md-nav__link">
+    Algoritma
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-kasus-hitung-manual" title="Contoh Kasus (Hitung Manual)" class="md-nav__link">
+    Contoh Kasus (Hitung Manual)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelebihan" title="Kelebihan" class="md-nav__link">
+    Kelebihan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kekurangan" title="Kekurangan" class="md-nav__link">
+    Kekurangan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-studi-kasus" title="Implementasi (Studi Kasus)" class="md-nav__link">
+    Implementasi (Studi Kasus)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alat-bahan" title="Alat &amp; Bahan" class="md-nav__link">
+    Alat &amp; Bahan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#langkah-langkah" title="Langkah-langkah" class="md-nav__link">
+    Langkah-langkah
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pertama" title="Pertama" class="md-nav__link">
+    Pertama
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedua" title="Kedua" class="md-nav__link">
+    Kedua
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketiga" title="Ketiga" class="md-nav__link">
+    Ketiga
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keempat" title="Keempat" class="md-nav__link">
+    Keempat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelima" title="Kelima" class="md-nav__link">
+    Kelima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keenam" title="Keenam" class="md-nav__link">
+    Keenam
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketujuh" title="Ketujuh" class="md-nav__link">
+    Ketujuh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedelapan" title="Kedelapan" class="md-nav__link">
+    Kedelapan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesembilan" title="Kesembilan" class="md-nav__link">
+    Kesembilan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesepuluh" title="Kesepuluh" class="md-nav__link">
+    Kesepuluh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesebelas" title="Kesebelas" class="md-nav__link">
+    Kesebelas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referensi" title="Referensi" class="md-nav__link">
+    Referensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="k-nearest-neighbors"><b>K-Nearest Neighbors</b></h1>
+<h2 id="pendahuluan"><b>Pendahuluan</b></h2>
+<h3 id="pengertian-k-nearest-neighbor"><b>Pengertian K-Nearest Neighbor</b></h3>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbor  (K-NN) adalah suatu metode yang menggunakan algoritma supervised dimana  hasil dari sampel uji yang baru diklasifikasikan berdasarkan mayoritas  dari kategori pada K-NN. Tujuan dari algoritma ini adalah  mengklasifikasi objek baru berdasakan atribut dan sampel latih.  pengklasifikasian tidak menggunakan model apapun untuk dicocokkan dan  hanya berdasarkan pada memori. Diberikan titik uji, akan ditemukan  sejumlah K objek (titik training) yang paling dekat dengan titik uji.  Klasifikasi menggunakan voting terbanyak di antara klasifikasi dari K  objek. Algoritma K-NN menggunakan klasifikasi ketetanggaan sebagai nilai  prediksi dari sample uji yang baru. Dekat atau jauhnya tetangga  biasanya dihitung berdasarkan jarak Eucledian.</p>
+
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nilai k yang terbaik untuk algoritma ini tergantung pada data. Secara umum, nilai k yang tinggi akan mengurangi efek noise pada klasifikasi, tetapi membuat batasan antara setiap klasifikasi menjadi lebih kabur. Nilai k yang bagus dapat dipilih dengan optimasi parameter, misalnya dengan menggunakan cross-validation. Kasus khusus di mana klasifikasi diprediksikan berdasarkan data pembelajaran yang paling dekat (dengan kata lain, k = 1) disebut algoritma k-nearest neighbor.</p>
+
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ketepatan algoritma k-NN ini sangat dipengaruhi oleh ada atau tidaknya fitur-fitur yang tidak relevan, atau jika bobot fitur tersebut tidak setara dengan relevansinya terhadap klasifikasi. Riset terhadap algoritma ini sebagian besar membahas bagaimana memilih dan memberi bobot terhadap fitur agar performa klasifikasi menjadi lebih baik. Sesuai dengan prinsip kerja K-Nearest Neighbor yaitu mencari jarak terdekat antara data yang akan dievaluasi dengan k tetangga(neighbor) terdekatnya dalam data pelatihan.</p>
+
+<blockquote>
+<p><p align="justify">Persamaan dibawah ini menunjukkan rumus perhitungan untuk mencari jarak terdekat dengan d adalah jarak dan p adalah dimensi data(Agusta, 2007):</p></p>
+</blockquote>
+<p><center></p>
+<p><img alt="" src="../assets/images/rumusknn.PNG" /></p>
+<p></center></p>
+<p>Dengan keterangan :</p>
+<p>𝑥1 : sampel data </p>
+<p>𝑥2 : data uji</p>
+<p>i : data ke-i</p>
+<p>d : jarak euclidean</p>
+<p>p : dimensi data</p>
+<h3 id="algoritma"><b>Algoritma</b></h3>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Algoritma metode KNN sangatlah sederhana, bekerja berdasarkan jarak terpendek dari query instance ke training sample untuk menentukan KNN-nya. Training sample diproyeksikan ke ruang berdimensi banyak, dimana masing-masing dimensi merepresentasikan fitur dari data. Ruang ini dibagi menjadi bagian-bagian berdasarkan klasifikasi training sample. Sebuah titik pada ruang ini ditandai kelac c jika kelas c merupakan klasifikasi yang paling banyak ditemui pada k buah tetangga terdekat dari titik tersebut. Dekat atau jauhnya tetangga biasanya dihitung berdasarkan Euclidean Distance.</p>
+
+<ol>
+<li>
+<p>Tentukan parameter <em>K</em> (jumlah tetangga paling dekat).</p>
+</li>
+<li>
+<p><p align="justify">Hitung kuadrat jarak euclid masing-masing objek terhadap data sample yang diberikan.</p></p>
+</li>
+<li>
+<p>Urutkan objek-objek kedalam kelompok yang memiliki jarak terkecil.</p>
+</li>
+<li>
+<p>Kumpulkan kategori <em>Y</em> (klasifikasi nearest neighbor).</p>
+</li>
+<li>
+<p><p align="justify">Dengan kategori nearest neighbor yang paling banyak, maka dapt diprediksikan nilai query instance yang telah dihitung.</p></p>
+</li>
+</ol>
+<h3 id="contoh-kasus-hitung-manual"><b>Contoh Kasus (Hitung Manual)</b></h3>
+<p alihn="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data didapatkan dari kuesioner dengan obyek pengujian berupa dua atribut (daya tahan keasaman dan kekuatan) untuk mengklasifikasikan apakah sebuah kertas tissue tergolong bagus atau jelek. Berikut ini contoh datanya:</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">X1 = Daya tahan keasaman (detik)</th>
+<th align="center">X2 = Kekuatan (kg/m<sup>2</sup>)</th>
+<th align="center">Klasifikasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">Jelek</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">Jelek</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">Bagus</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">Bagus</td>
+</tr>
+</tbody>
+</table>
+<p alihn="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sebuah pabrik memproduksi kertas tissue baru yang memiliki X1 = 3 dan X2 = 7. Kita gunakan algoritma KNN untuk melakukan prediksi termasuk klasifikasi apa (bagus atau jelek) kertas tissue yang baru ini.</p>
+
+<p><strong>Jawaban</strong></p>
+<ol>
+<li>
+<p>Tentukan parameter K = jumlah banyaknya tetangga terdekat. Misal K=3.</p>
+</li>
+<li>
+<p><p alihn="justify">Hitung jarak antara data baru dan semua data yang ada di data training. Misal digunakan square distance dari jarak antara data baru dengan semua data yang ada di data training.</p></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">X1 = Daya tahan keasaman (detik)</th>
+<th align="center">X2 = Kekuatan (kg/m2)</th>
+<th align="center">Square Distance ke data baru (3,7)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">(7-3)<sup>2</sup>+(7-7)<sup>2</sup> = 16</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">(7-3)<sup>2</sup>+(4-7)<sup>2</sup> = 25</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">(3-3)<sup>2</sup>+(4-7)<sup>2</sup> = 9</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">(1-3)<sup>2</sup>+(4-7)<sup>2</sup> = 13</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p alihn="justify">Urutkan jarak tersebut dan tentukan tetangga mana yang terdekat berdasarkan jarak minimum ke-K.</p></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">X1 = Daya tahan keasaman (detik)</th>
+<th align="center">X2 = Kekuatan (kg/m2)</th>
+<th align="center">Square Distance ke data baru (3,7)</th>
+<th align="center">Urutan Jarak</th>
+<th align="center">K-3-NN?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">(7-3)2+(7-7)2 = 16</td>
+<td align="center">3</td>
+<td align="center">Ya</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">(7-3)2+(4-7)2 = 25</td>
+<td align="center">4</td>
+<td align="center">Tidak</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">(3-3)2+(4-7)2 = 9</td>
+<td align="center">1</td>
+<td align="center">Ya</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">(1-3)2+(4-7)2 = 13</td>
+<td align="center">2</td>
+<td align="center">Ya</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p alihn="justify">Tentukan kategori dari tetangga terdekat. Perhatikan pada baris kedua pada kolom terakhir: katagori dari tetangga terdekat (Y) tidak termasuk karena ranking dari data ini lebih dari 3 (=K).</p></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">X1 = Daya tahan keasaman (detik)</th>
+<th align="center">X2 = Kekuatan (kg/m2)</th>
+<th align="center">Square Distance ke data baru (3,7)</th>
+<th align="center">Urutan Jarak</th>
+<th align="center">K-3-NN?</th>
+<th align="center">Kategory K-NN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">(7-3)2+(7-7)2 = 16</td>
+<td align="center">3</td>
+<td align="center">Ya</td>
+<td align="center">Jelek</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">(7-3)2+(4-7)2 = 25</td>
+<td align="center">4</td>
+<td align="center">Tidak</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">(3-3)2+(4-7)2 = 9</td>
+<td align="center">1</td>
+<td align="center">Ya</td>
+<td align="center">Bagus</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">(1-3)2+(4-7)2 = 13</td>
+<td align="center">2</td>
+<td align="center">Ya</td>
+<td align="center">Bagus</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><p align="justify">Gunakan kategori mayoritas yang sederhana dari tetangga yang terdekat tersebut sebagai nilai prediksi dari data yang baru.</p></p>
+</li>
+<li>
+<p><p align="justify">Kita punya 2 kategori Bagus dan 1 kategori Jelek, karena 2&gt;1 maka kita simpulkan bahwa kertas tissue baru tadi yang memiliki X1 = 3 dan X2 = 7 termasuk dalam kategori Bagus.</p></p>
+</li>
+</ol>
+<p>Itulah contoh penerapan k-nn pada sebuah kasus kusioner terhadap kertas tissue.</p>
+<h3 id="kelebihan"><b>Kelebihan</b></h3>
+<ul>
+<li>
+<p>Mudah dipahami dan diimplementasikan.</p>
+</li>
+<li>
+<p>Sangan <em>non-linear</em>.</p>
+</li>
+</ul>
+<p><p align="justify">K-NN merupakan salah satu algoritma (model) pembelajaran mesin yang bersifat <i>non-parametrik</i>, yaitu model yang tidak mengasumsikan apa-apa mengenai distribusi <i>instance</i> di dalam <i>dataset</i>. Model <i>non-parametrik</i> biasanya lebih sulit diinterpretasikan, namun salah satu kelebihannya adalah garis keputusan kelas yang dihasilkan model tersebut bisa jadi sangat fleksibel dan <i>non-linear</i>.</p></p>
+<ul>
+<li>
+<p>Kuat dalam hal ruang pencarian, misalnya kelas tidak harus linear dipisahkan.</p>
+</li>
+<li>
+<p>Efektif apabila data <em>training sample</em>-nya besar.</p>
+</li>
+<li>
+<p>Tangguh terhadap data <em>training sample</em>-nya besar. </p>
+</li>
+<li>
+<p>Beberapa parameter untuk acuan: jarak metrik dan k.</p>
+</li>
+<li>
+<p>Memiliki konsistensi yang kuat.</p>
+</li>
+</ul>
+<h3 id="kekurangan"><b>Kekurangan</b></h3>
+<ul>
+<li>
+<p><p align="justfy">Perlu untuk menentukan nilai k yang optimal sehingga untuk menyatakan jumlah tetangga terdekatnya lebih mudah.</p></p>
+</li>
+<li>
+<p><p align="justfy">Nilai komputasi yang cukup tinggi karena perhitungan jarak harus dilkukan pada setiap query instance.</p></p>
+</li>
+<li>
+<p>Tidak menangani <i>missing value</i> secara implisit.</p>
+</li>
+<li>
+<p>Sensitif terhadap data pencilan (<em>outlier</em>).</p>
+</li>
+<li>
+<p>Rentan terhadap variabel yang non-informatif.</p>
+</li>
+</ul>
+<p><center></p>
+<p><img alt="" src="../assets/images/rantangnoninfor.png" /></p>
+<p><strong>Gambar</strong>: Variabel yang noninformatif mengacaukan klasifikasi dalam k-nn</p>
+<p></center></p>
+<ul>
+<li>
+<p>Rentan terhadap dimensionalitas yang tinggi.</p>
+</li>
+<li>
+<p>Rentang terhadap perbedaan rentang variabel.</p>
+</li>
+</ul>
+<p><center></p>
+<p><img alt="" src="../assets/images/rentangvariabel.png" /></p>
+<p><strong>Gambar</strong>: Perbedaan rentang variabel bisa mengacaukan klasifikasi k-nn</p>
+<p></center></p>
+<h2 id="implementasi-studi-kasus"><b>Implementasi (Studi Kasus)</b></h2>
+<h3 id="alat-bahan"><b>Alat &amp; Bahan</b></h3>
+<p align="justify">Sebelum menerapkan konsep k-nearest neighbor pada studi kasus yang telah ditentukan, beberapa tools yang perlu dipersiapkan agar program yang kita rancang bisa dieksekusi dengan baik diantaranya:</p>
+
+<ul>
+<li>python 3.x (versi 3 keatas). </li>
+<li>Anaconda Navigator atau Pycharm.</li>
+</ul>
+<p align="justify">Untuk mempermudah kawan-kawan mendapatkan toolsnya, sillakan kawan-kawan bisa download tools-nya <a href="https://bit.ly/2VQ2UfU"> disini</a>.</p>
+
+<p align="justify">Studi kasus pada Fruit Data adalah mengklasifikasikan beberapa jenis buah dengan 3 ketentuan inputan. Untuk contoh penulisan program dan datanya bisa mengambil kawan-kawan download <a href="https://github.com/mframadhani/170441100008_Data-Mining"> disini</a>.</p>
+
+<p align="justify">Berikut source code dan penjelasan untuk menyelesaikan study kasus tersebut dengan K-NN Classification.</p>
+
+<h3 id="langkah-langkah"><b>Langkah-langkah</b></h3>
+<h4 id="pertama"><b>Pertama</b></h4>
+<p>Import beberapa library dari python seperti:</p>
+<ul>
+<li>
+<p><p align="justify">pandas =&gt; memuat sebuah <i>file</i> ke dalam tabel virtual ala <i>spreadsheet</i> yang memiliki struktur data yang diperukan untuk membersihkan data mentah ke dalam sebuah bentuk yang cocok untuk dianalisis.</p></p>
+</li>
+<li>
+<p><p align="justify">numpy =&gt; untuk operasi vektor dan matriks. Fiturnya hampir sama dengan MATLAB dalam mengelola <i>array</i> dan <i>array</i> multidimensi.</p></p>
+</li>
+<li>
+<p><p align="justify">sklearn =&gt; untuk mengimportkan <i>library data science</i>. Berbagai fungsi didalamnya seperti fungsi agregasi, hitung metriks, hitung akurasi, display gambar, dan lain sebagainya.</p></p>
+</li>
+<li>
+<p>matplotlib =&gt; untuk menyajikan visualisasi data <i>cluster</i>.</p>
+</li>
+</ul>
+<pre><code class="python">#import library
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import neighbors
+from matplotlib.colors import ListedColormap, BoundaryNorm
+import matplotlib.patches as mpatches
+</code></pre>
+
+<h4 id="kedua"><b>Kedua</b></h4>
+<p>Mengimport data dari komputer dengan perintah pandas.</p>
+<pre><code class="python">#read data
+data = pd.read_table('fruit_data.txt')  #Pastikan file data set berada dalam folder yang sama dengan file jupyter notebook
+</code></pre>
+
+<h4 id="ketiga"><b>Ketiga</b></h4>
+<p>Menampilkan data.</p>
+<pre><code class="python">#explore data
+print(data.shape)
+data.head(10) #Menampilkan 10 baris pertama dari tabel
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/data.png" /></p>
+<p></center></p>
+<pre><code class="python"># membuat nilai kunci utama antara fruit_label dengan fruit_name
+lookup_fruit_name = dict(zip(data.fruit_label.unique(), data.fruit_name.unique()))   
+print(lookup_fruit_name)
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/labelname.png" /></p>
+<p></center></p>
+<h4 id="keempat"><b>Keempat</b></h4>
+<p>Membuat model dan data train.</p>
+<pre><code class="python">X = data[['mass', 'width', 'height']]
+y = data['fruit_label']
+</code></pre>
+
+<h4 id="kelima"><b>Kelima</b></h4>
+<p>Melakukan split (memisah) data antara data test dan data train.</p>
+<pre><code class="python">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state=0)
+</code></pre>
+
+<h4 id="keenam"><b>Keenam</b></h4>
+<p>Mengecek nilai dengan dimensi array.</p>
+<pre><code class="python">print('X_train = ', X_train.shape)
+print('X_test = ', X_test.shape)
+print('y_train = ', y_train.shape)
+print('y_test = ', y_test.shape)
+</code></pre>
+
+<pre><code class="python">X_train.head()
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/xtrain.png" /></p>
+<p></center></p>
+<pre><code class="python">y_train.head()
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/ytrain.png" /></p>
+<p></center></p>
+<h4 id="ketujuh"><b>Ketujuh</b></h4>
+<p>Menentukan objek kelas knn.</p>
+<pre><code class="python">knn = KNeighborsClassifier(n_neighbors = 5)
+</code></pre>
+
+<h4 id="kedelapan"><b>Kedelapan</b></h4>
+<p>Memasukkan nilai data train kedalam fungsi knn.</p>
+<pre><code class="python">knn.fit(X_train, y_train)
+</code></pre>
+
+<h4 id="kesembilan"><b>Kesembilan</b></h4>
+<p>Mengecek nilai akurasi dari data test.</p>
+<pre><code class="python">knn.score(X_test, y_test)
+</code></pre>
+
+<h4 id="kesepuluh"><b>Kesepuluh</b></h4>
+<p align="justify">Melakukan ploting data. Mengklasifikasikan data berdasarkan jarak data dengan data tetangga terdekat menggunakan warna plot agar mempermudah membaca data.</p>
+
+<pre><code class="python">def plot_fruit_knn(X, y, n_neighbors, weights):
+    X_mat = X[['height', 'width']].as_matrix()
+    y_mat = y.as_matrix()
+
+    # Create color maps
+    cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF','#AFAFAF'])
+    cmap_bold  = ListedColormap(['#FF0000', '#00FF00', '#0000FF','#AFAFAF'])
+
+    clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
+    clf.fit(X_mat, y_mat)
+
+    # Plot the decision boundary by assigning a color in the color map
+    # to each mesh point.
+
+    mesh_step_size = .01  # step size in the mesh
+    plot_symbol_size = 50
+
+    x_min, x_max = X_mat[:, 0].min() - 1, X_mat[:, 0].max() + 1
+    y_min, y_max = X_mat[:, 1].min() - 1, X_mat[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, mesh_step_size),
+                         np.arange(y_min, y_max, mesh_step_size))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+
+    # Put the result into a color plot
+    Z = Z.reshape(xx.shape)
+    plt.figure()
+    plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+
+    # Plot training points
+    plt.scatter(X_mat[:, 0], X_mat[:, 1], s=plot_symbol_size, c=y, cmap=cmap_bold, edgecolor = 'black')
+    plt.xlim(xx.min(), xx.max())
+    plt.ylim(yy.min(), yy.max())
+
+    patch0 = mpatches.Patch(color='#FF0000', label='apple')
+    patch1 = mpatches.Patch(color='#00FF00', label='mandarin')
+    patch2 = mpatches.Patch(color='#0000FF', label='orange')
+    patch3 = mpatches.Patch(color='#AFAFAF', label='lemon')
+    plt.legend(handles=[patch0, patch1, patch2, patch3])
+
+
+    plt.xlabel('height (cm)')
+    plt.ylabel('width (cm)')
+
+    plt.show()
+</code></pre>
+
+<pre><code class="python">plot_fruit_knn(X_train, y_train, 5, 'uniform')  # n_neighbors = 5
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/visualdata.png" /></p>
+<p></center></p>
+<h4 id="kesebelas"><b>Kesebelas</b></h4>
+<p>Melakukan prediksi terhadap beberapa data baru.</p>
+<pre><code class="python">fruit_prediction = knn.predict([[30, 6, 5]])
+lookup_fruit_name[fruit_prediction[0]]
+</code></pre>
+
+<p><strong>Output:</strong> mandarin</p>
+<pre><code class="python">fruit_prediction = knn.predict([[500, 500, 500]])
+lookup_fruit_name[fruit_prediction[0]]
+</code></pre>
+
+<p><strong>Output:</strong> orange</p>
+<p align="justify">Selanjutnya ulangi langkah kesebelas untuk melakukan test data baru untuk diuji dengan K-Nearest Neighbor Classification.</p>
+
+<h2 id="referensi"><b>Referensi</b></h2>
+<ul>
+<li>
+<p><p align="justify">Gorunescu, F. 2011. Data Mining Concept Model and Techniques. Berlin: Springer. ISBN 978-3-642-19720-8.</p></p>
+</li>
+<li>
+<p><p align="justify">Han, Jiawei dan Kamber, Micheline. (2006), Data Mining : Concept and Techniques Second Edition, Morgan Kaufmann Publishers.</p></p>
+</li>
+<li>
+<p><p align="justify">Florin Gorunescu, Data Mining: Concepts, Models and Techniques, Springer, 2011.</p></p>
+</li>
+<li>
+<p><a href="https://cahyadsn.phpindonesia.id/extra/knn.php">https://cahyadsn.phpindonesia.id/extra/knn.php</a></p>
+</li>
+<li>
+<p><a href="https://www.academia.edu/31306621/MAKALAH_KNN_K-NEAREST_NEIGHBOUR_">https://www.academia.edu/31306621/MAKALAH_KNN_K-NEAREST_NEIGHBOUR_</a></p>
+</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../indekskmeans/" title="K-Means" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                K-Means
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../indeksdecisiontree/" title="Decision Tree" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Decision Tree
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Dany R
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/mframadhani" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="https://facebook.com/Dany R" class="md-footer-social__link fa fa-facebook"></a>
+    
+      <a href="https://instagram.com/mframadhani__" class="md-footer-social__link fa fa-instagram"></a>
+    
+      <a href="https://twitter.com/mframadhani_" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.8c0d971c.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

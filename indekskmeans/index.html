@@ -1,0 +1,1086 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Kumpulan Tugas Data Mining (SI 6A)">
+      
+      
+        <link rel="canonical" href="https://mframadhani.github.io/170441100008_Data-Mining/indekskmeans/">
+      
+      
+        <meta name="author" content="Moh Fajar Ramadhani">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>K-Means - Data Mining (170441100008)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "None", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#k-means" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://mframadhani.github.io/170441100008_Data-Mining/" title="Data Mining (170441100008)" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Mining (170441100008)
+            </span>
+            <span class="md-header-nav__topic">
+              K-Means
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/mframadhani/170441100008_Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Moh Fajar Ramadhani
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Pengantar" class="md-tabs__link md-tabs__link--active">
+        Pengantar
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://mframadhani.github.io/170441100008_Data-Mining/" title="Data Mining (170441100008)" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Mining (170441100008)
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/mframadhani/170441100008_Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Moh Fajar Ramadhani
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Pengantar" class="md-nav__link">
+      Pengantar
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        K-Means
+      </label>
+    
+    <a href="./" title="K-Means" class="md-nav__link md-nav__link--active">
+      K-Means
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan" class="md-nav__link">
+    Pendahuluan
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pengertian" title="Pengertian" class="md-nav__link">
+    Pengertian
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karakteristik-k-mean" title="Karakteristik K-Mean" class="md-nav__link">
+    Karakteristik K-Mean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tujuan-analisis-cluster" title="Tujuan Analisis Cluster" class="md-nav__link">
+    Tujuan Analisis Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manfaat-analisis-cluster" title="Manfaat Analisis Cluster" class="md-nav__link">
+    Manfaat Analisis Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algoritma" title="Algoritma" class="md-nav__link">
+    Algoritma
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eucledian-distance" title="Eucledian Distance" class="md-nav__link">
+    Eucledian Distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelebihan" title="Kelebihan" class="md-nav__link">
+    Kelebihan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kekurangan" title="Kekurangan" class="md-nav__link">
+    Kekurangan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-studi-kasus" title="Implementasi (Studi Kasus)" class="md-nav__link">
+    Implementasi (Studi Kasus)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alat-bahan" title="Alat &amp; Bahan" class="md-nav__link">
+    Alat &amp; Bahan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#langkah-langkah" title="Langkah-langkah" class="md-nav__link">
+    Langkah-langkah
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pertama" title="Pertama" class="md-nav__link">
+    Pertama
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedua" title="Kedua" class="md-nav__link">
+    Kedua
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketiga" title="Ketiga" class="md-nav__link">
+    Ketiga
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keempat" title="Keempat" class="md-nav__link">
+    Keempat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelima" title="Kelima" class="md-nav__link">
+    Kelima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keenam" title="Keenam" class="md-nav__link">
+    Keenam
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketujuh" title="Ketujuh" class="md-nav__link">
+    Ketujuh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedelapan" title="Kedelapan" class="md-nav__link">
+    Kedelapan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesembilan" title="Kesembilan" class="md-nav__link">
+    Kesembilan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refrensi" title="Refrensi" class="md-nav__link">
+    Refrensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../indeksknn/" title="K-Nearest Neighbors" class="md-nav__link">
+      K-Nearest Neighbors
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../indeksdecisiontree/" title="Decision Tree" class="md-nav__link">
+      Decision Tree
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../bio/" title="Biografi" class="md-nav__link">
+      Biografi
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan" class="md-nav__link">
+    Pendahuluan
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pengertian" title="Pengertian" class="md-nav__link">
+    Pengertian
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karakteristik-k-mean" title="Karakteristik K-Mean" class="md-nav__link">
+    Karakteristik K-Mean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tujuan-analisis-cluster" title="Tujuan Analisis Cluster" class="md-nav__link">
+    Tujuan Analisis Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manfaat-analisis-cluster" title="Manfaat Analisis Cluster" class="md-nav__link">
+    Manfaat Analisis Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algoritma" title="Algoritma" class="md-nav__link">
+    Algoritma
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eucledian-distance" title="Eucledian Distance" class="md-nav__link">
+    Eucledian Distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelebihan" title="Kelebihan" class="md-nav__link">
+    Kelebihan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kekurangan" title="Kekurangan" class="md-nav__link">
+    Kekurangan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-studi-kasus" title="Implementasi (Studi Kasus)" class="md-nav__link">
+    Implementasi (Studi Kasus)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alat-bahan" title="Alat &amp; Bahan" class="md-nav__link">
+    Alat &amp; Bahan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#langkah-langkah" title="Langkah-langkah" class="md-nav__link">
+    Langkah-langkah
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pertama" title="Pertama" class="md-nav__link">
+    Pertama
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedua" title="Kedua" class="md-nav__link">
+    Kedua
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketiga" title="Ketiga" class="md-nav__link">
+    Ketiga
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keempat" title="Keempat" class="md-nav__link">
+    Keempat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelima" title="Kelima" class="md-nav__link">
+    Kelima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keenam" title="Keenam" class="md-nav__link">
+    Keenam
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ketujuh" title="Ketujuh" class="md-nav__link">
+    Ketujuh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedelapan" title="Kedelapan" class="md-nav__link">
+    Kedelapan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kesembilan" title="Kesembilan" class="md-nav__link">
+    Kesembilan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refrensi" title="Refrensi" class="md-nav__link">
+    Refrensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="k-means"><b>K-Means</b></h1>
+<h2 id="pendahuluan"><b>Pendahuluan</b></h2>
+<h3 id="pengertian"><b>Pengertian</b></h3>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data Clustering merupakan salah satu metode Data Mining yang bersifat tanpa arahan  (unsupervised). Ada dua jenis data clustering yang sering dipergunakan dalam proses pengelompokan data yaitu hierarchical (hirarki) data clustering dan non-hierarchical (non hirarki) data clustering. K-Means merupakan salah satu metode data clustering non hirarki yang berusaha mempartisi data yang ada ke dalam bentuk satu atau lebih cluster/ kelompok.</p>
+
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Metode ini mempartisi data ke dalam cluster/ kelompok sehingga data yang memiliki karakteristik yang sama dikelompokkan ke dalam satu cluster yang sama dan data yang mempunyai karakteristik yang berbeda dikelompokkan ke dalam kelompok yang lain. Adapun tujuan dari data clustering ini adalah untuk meminimalisasikan objective function yang diset dalam proses clustering, yang pada umumnya berusaha meminimalisasikan variasi di dalam suatu cluster dan memaksimalisasikan variasi antar cluster. Manfaat Clustering adalah sebagai Identifikasi Object (Recognition) misalnya dalam bidang Image Processing, Computer Vision atau robot vision. Selain itu adalah sebagai Sistem Pendukung Keputusan dan Data Mining seperti Segmentasi pasar, pemetaan wilayah, Manajemen marketing dll.</p>
+
+<blockquote>
+<p><p align="justify">K-means clustering merupakan salah satu metode data clustering non-hirarki yang mengelompokan data dalam bentuk satu atau lebih cluster/kelompok. Data-data yang memiliki karakteristik yang sama dikelompokan dalam satu cluster/kelompok dan data yang memiliki karakteristik yang berbeda dikelompokan dengan cluster/kelompok yang lain sehingga data yang berada dalam satu cluster/kelompok memiliki tingkat variasi yang kecil (Agusta, 2007). </p></p>
+</blockquote>
+<h3 id="karakteristik-k-mean"><b>Karakteristik K-Mean</b></h3>
+<ol>
+<li>K-means sangat cepat dalam proses clustering.</li>
+<li>K-means sangat sensitive pada pembangkitan centroid awal secara random.</li>
+<li>Memungkinkan suatu cluster tidak mempunyai anggota.</li>
+<li>Hasil clustering dengan K-means bersifat unik (selalu berubah-ubah, terkadang baik, terkadang jelek).</li>
+</ol>
+<h3 id="tujuan-analisis-cluster"><b>Tujuan Analisis Cluster</b></h3>
+<ol>
+<li>Untuk mengelompokkan objek-objek (individu-individu) menjadi kelompok-kelompok yang mempunyai sifat yang relatif sama (homogen). </li>
+<li>Untuk membedakan dengan jelas antara satu kelompok (<i>cluster</i>) dengan kelompok lainnya. </li>
+</ol>
+<h3 id="manfaat-analisis-cluster"><b>Manfaat Analisis Cluster</b></h3>
+<ol>
+<li>Untuk menerapkan dasar-dasar pengelompokan dengan lebih konsisten.</li>
+<li>Untuk mengembangkan suatu metode generalisasi secara induktif, yaitu pengambilan kesimpulan secara umum dengan berdasarkan fakta-fakta khusus.</li>
+<li>Menemukan tipologi yang cocok dengan karakter obyek yang diteliti.</li>
+<li>Mendiskripsikan sifat-sifat/karakteristik dari masing-masing kelompok.</li>
+</ol>
+<h3 id="algoritma"><b>Algoritma</b></h3>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Data clustering menggunakan metode K-Means ini secara umum dilakukan dengan algoritma dasar sebagai berikut (Yudi Agusta, 2007) :</p>
+
+<ol>
+<li>
+<p>Tentukan jumlah cluster.</p>
+</li>
+<li>
+<p>Alokasikan data ke dalam cluster secara random.</p>
+</li>
+<li>
+<p>Hitung centroid/ rata-rata dari data yang ada di masing-masing cluster.</p>
+</li>
+<li>
+<p>Alokasikan masing-masing data ke centroid/ rata-rata terdekat.</p>
+</li>
+<li>
+<p><p align="justify">Kembali ke Step 3, apabila masih ada data yang berpindah cluster atau apabila perubahan nilai centroid, ada yang di atas nilai threshold yang ditentukan atau apabila perubahan nilai pada objective function yang digunakan di atas nilai threshold yang ditentukan.</p></p>
+</li>
+</ol>
+<h3 id="eucledian-distance"><b>Eucledian Distance</b></h3>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Untuk mengelompokkan sebuah data pada kelompok tertentu, hal yang harus dilakukan adalah menghitung jarak antara data dengan centroid. Beberapa <i>distance space</i> telah diimplementasikan dalam menghitung jarak (<i>distance</i> antara data dan <i>centroid</i>) termasuk di antaranya  L1 (<i>Manhattan/ City Block</i> <i>distance space</i>, L2 (<i>Euclidean</i>) <i>distance space</i>, dan Lp (<i>Minkowski</i>) <i>distance space</i>. Jarak antara dua titik x1 dan  x2 pada <i>Manhattan/City Block  distance space </i>dihitung dengan menggunakan rumus sebagai berikut (Yudi Agusta, 2007):</p>
+
+<p>(1)</p>
+<p><center></p>
+<p><img alt="" src="../assets/images/rumus1.jpg" /></p>
+<p></center></p>
+<p>(2)</p>
+<p><center></p>
+<p><img alt="" src="../assets/images/rumus12.jpg" /></p>
+<p></center></p>
+<p>Dimana:</p>
+<p>D<sub>L2</sub> : jarak kuadrat <i>Euclidean</i> antar onjek ke x<sub>2</sub> dengan x<sub>1</sub></p>
+<p>P    : jumlah variabel <i>cluster</i></p>
+<p>x<sub>2j</sub>   : nilai atau data dari objek ke-2 pada variabel ke-j</p>
+<p>x<sub>1j</sub>   : nilai atau data dari obbjek ke-1 ada variabel ke-j (Everitt, 1993).</p>
+<h3 id="kelebihan"><b>Kelebihan</b></h3>
+<ul>
+<li>Mudah untuk diimplementasikan dan dijalankan.</li>
+<li>Waktu yang dibutuhkan untuk menjalankan pembelajaran ini relatif cepat.</li>
+<li>Mudah untuk diadaptasi.</li>
+<li>Umum digunakan.</li>
+</ul>
+<h3 id="kekurangan"><b>Kekurangan</b></h3>
+<ul>
+<li>
+<p><p align="justify">Sebelum algoritma dijalankan, k buah titik diinisialisasi secara <i>random</i> sehingga pengelompokkan data yang dihasilkan dapat berbeda-beda. Jika nilai <i>random</i> untuk inisialisasi kurang baik, maka pengelompokkan yang dihasilkan pun menjadi kurang optimal.</p>
+</li>
+<li>
+<p><p align="justify">Dapat terjebak dalam masalah yang disebut <i>curse of dimensionality</i>. Hal  ini dapat terjadi jika data pelatihan memiliki dimensi yang sangat  tinggi (Contoh jika data pelatihan terdiri dari 2 atribut maka  dimensinya adalah 2 dimensi. Namun jika ada 20 atribut, maka akan ada 20  dimensi). Salah satu cara kerja algoritma ini adalah mencari jarak  terdekat antara <i>k</i> buah titik dengan titik lainnya. Jika mencari  jarak antar titik pada 2 dimensi, masih mudah dilakukan. Namun bagaimana  mencari jarak antar titik jika terdapat 20 dimensi. Hal ini akan  menjadi sulit.</p>
+</li>
+<li>
+<p><p align="justify">Jika hanya terdapat beberapa titik sampel data, maka cukup mudah untuk menghitung dan mencari titik terdekat dengan <i>k</i> titik yang diinisialisasi secara <i>random</i>. Namun  jika terdapat banyak sekali titik data (misalnya satu milyar buah  data), maka perhitungan dan pencarian titik terdekat akan membutuhkan  waktu yang lama. Proses tersebut dapat dipercepat, namun dibutuhkan  struktur data yang lebih rumit seperti <i>kD-Tree</i> atau <i>hashing</i>.</p>
+</li>
+</ul>
+<h2 id="implementasi-studi-kasus"><b>Implementasi (Studi Kasus)</b></h2>
+<h3 id="alat-bahan"><b>Alat &amp; Bahan</b></h3>
+<p align="justify">Sebelum menerapkan konsep k-mean clustering pada studi kasus yang telah ditentukan, beberapa tools yang perlu dipersiapkan agar program yang kita rancang bisa dieksekusi dengan baik diantaranya:</p>
+
+<ul>
+<li>python 3.x (versi 3 keatas). </li>
+<li>Anaconda Navigator atau Pycharm.</li>
+</ul>
+<p align="justify">Untuk mempermudah kawan-kawan mendapatkan toolsnya, sillakan kawan-kawan bisa download tools-nya <a href="https://bit.ly/2VQ2UfU"> disini</a>.</p>
+
+<p align="justify">Studi kasus pada Air Qualiy adalah mengklasterkan beberapa senyawa yang ada pada udara tersebut dengan beberapa ketentuan. Untuk contoh penulisan program dan datanya bisa kawan-kawan download <a href="https://github.com/mframadhani/170441100008_Data-Mining"> disini</a>.</p>
+
+<p align="justify">Berikut source code dan penjelasan untuk menyelesaikan study kasus tersebut dengan K-Means Clustering.</p>
+
+<h3 id="langkah-langkah"><b>Langkah-langkah</b></h3>
+<h4 id="pertama"><b>Pertama</b></h4>
+<p>Import beberapa library dari python seperti:</p>
+<ul>
+<li>
+<p><p align="justify">pandas =&gt; memuat sebuah <i>file</i> ke dalam tabel virtual ala <i>spreadsheet</i> yang memiliki struktur data yang diperukan untuk membersihkan data mentah ke dalam sebuah bentuk yang cocok untuk dianalisis.</p></p>
+</li>
+<li>
+<p><p align="justify">numpy =&gt; untuk operasi vektor dan matriks. Fiturnya hampir sama dengan MATLAB dalam mengelola <i>array</i> dan <i>array</i> multidimensi.</p></p>
+</li>
+<li>
+<p><p align="justify">sklearn =&gt; untuk mengimportkan <i>library data science</i>. Berbagai fungsi didalamnya seperti fungsi agregasi, hitung metriks, hitung akurasi, display gambar, dan lain sebagainya.</p></p>
+</li>
+<li>
+<p>matplotlib =&gt; untuk menyajikan visualisasi data <i>cluster</i>.</p>
+</li>
+</ul>
+<pre><code class="python">#import library
+import pandas as pd
+import numpy as np
+import matplotlib.pylot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+</code></pre>
+
+<h4 id="kedua"><b>Kedua</b></h4>
+<p>Mengimport data csv dari komputer dengan perintah pandas.</p>
+<pre><code class="python">#import data csv
+air = pd.read_csv('AirQualityItaly.csv') #pastikan file csv berada dalam satu folder dengan file python
+air.head()
+</code></pre>
+
+<h4 id="ketiga"><b>Ketiga</b></h4>
+<p>Hapus label yang tidak dipakai untuk dianalisis.</p>
+<pre><code class="python">#menghapus label yang tidak terpakai
+air = air.drop(['Date','Time','CO(GT)','PT08.S1(CO)','C6H6(GT)','PT08.S2(NMHC)','NOx(GT)','PT08.S3(NOx)','NO2(GT)','PT08.S4(NO2)','PT08.S5(O3)','T','AH'], axis = 1])
+</code></pre>
+
+<h4 id="keempat"><b>Keempat</b></h4>
+<p>Cek info tabel apakah label yang dihapus berhasil atau tidak.</p>
+<pre><code class="python">air.info()
+</code></pre>
+
+<h4 id="kelima"><b>Kelima</b></h4>
+<p>Mengelompokkan data dengan visualisasi.</p>
+<pre><code class="python">plt.scatter(air.NMHC, air.RH, s = 10, c = 'c', marker = '.', alpha = 1)
+plt.show()
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/visualisasidata.png" /></p>
+<p></center></p>
+<p align="center">(Visualisasi data <i>cluster</i>)</p>
+
+<h4 id="keenam"><b>Keenam</b></h4>
+<p>Menentukan <i>centroid</i>.</p>
+<pre><code class="python">air_x = air.iloc[:, 0:2]
+air_x.head()
+</code></pre>
+
+<pre><code class="python">x_array = np.array(air_x)
+print(x_array)
+</code></pre>
+
+<pre><code class="python">scaler = MinMaxScaler()
+x_scaled = scaler.fit_transform(x_array)
+x_scaled
+</code></pre>
+
+<h4 id="ketujuh"><b>Ketujuh</b></h4>
+<p>Menentukan <i>cluster</i> = 5</p>
+<pre><code class="python">kmeans = KMeans(n_clusters = 5, init='k-means++', max_iter=100, n_init=10, random_state=123)
+</code></pre>
+
+<pre><code class="python">c_kmeans = kmeans.fit_predict(x_scaled)
+</code></pre>
+
+<pre><code class="python">air[&quot;Kelas&quot;] = c_kmeans
+</code></pre>
+
+<h4 id="kedelapan"><b>Kedelapan</b></h4>
+<p>Menampilan hasil <em>cluster</em></p>
+<pre><code class="python">print(air)
+</code></pre>
+
+<pre><code class="python">print(kmeans.cluster_centers_)
+</code></pre>
+
+<pre><code class="python">air['kluster'] = kmeans.labels_
+</code></pre>
+
+<h4 id="kesembilan"><b>Kesembilan</b></h4>
+<p>Visualisasi data hasil akhir <i>cluster</i></p>
+<pre><code class="python">output = plt.scatter(x_scaled[:,0], x_scaled[:,1], s = 100, c = air.kluster, marker = '.', alpha = 1, )
+centers = kmeans.cluster_centers_
+plt.scatter(centers[:,0], centers[:,1], c='red', label='Centroids', s=150, alpha=1 , marker='o');
+plt.title('Hasil Klustering K-Means Kualitas Udara')
+plt.xlabel('Tingkat Kadar NHCM')
+plt.ylabel('Tingkat Kadar RH')
+plt.colorbar (output)
+plt.legend()
+plt.show()
+</code></pre>
+
+<p><center></p>
+<p><img alt="" src="../assets/images/akhirvisualcentroid.png" /></p>
+<p align="center">Visualisasi data 5 <i>cluster</i> dengan <i>centroid</i>-nya</p>
+
+<p></center></p>
+<h2 id="refrensi"><b>Refrensi</b></h2>
+<ul>
+<li>
+<p><p align="justify">Agusta, Y. 2007.  K-means -  Penerapan, Permasalahan dan Metode Terkait. Jurnal Sistem dan Informatika Vol. 3 (Februari 2007): 47-60.</p></p>
+</li>
+<li>
+<p><p align="justify">Santosa, B. 2007. Data Mining: Teknik Pemanfaatan Data untuk Keperluan Bisnis. Yogyakarta: Graha Ilmu.</p></p>
+</li>
+<li>
+<p><p align="justify">Dalam jurnal SNTIKI, vol (5), Hal 395-398, oleh Nengsih W, Febiyanto pada tahun 2012 dengan judul “Data Mining Analysis Pengelompokan
+      Penerima Beasiswa Menggunakan Teknik Clustering K-Means.</p></p>
+</li>
+<li>
+<p><a href="https://id.wikipedia.org/wiki/K-means">https://id.wikipedia.org/wiki/K-means</a></p>
+</li>
+<li>
+<p><a href="https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97">https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97</a></p>
+</li>
+<li>
+<p><a href="https://www.academia.edu/36232466/IMPLEMENTASI_ALGORITMA_K-MEANS_CLUSTERING_DALAM_PENENTUAN_PRIORITAS_REHABILITASI_DAERAH_ALIRAN_SUNGAI_DAS">https://www.academia.edu/36232466/IMPLEMENTASI_ALGORITMA_K-MEANS_CLUSTERING_DALAM_PENENTUAN_PRIORITAS_REHABILITASI_DAERAH_ALIRAN_SUNGAI_DAS</a></p>
+</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Pengantar" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Pengantar
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../indeksknn/" title="K-Nearest Neighbors" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                K-Nearest Neighbors
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Dany R
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/mframadhani" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="https://facebook.com/Dany R" class="md-footer-social__link fa fa-facebook"></a>
+    
+      <a href="https://instagram.com/mframadhani__" class="md-footer-social__link fa fa-instagram"></a>
+    
+      <a href="https://twitter.com/mframadhani_" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.8c0d971c.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
